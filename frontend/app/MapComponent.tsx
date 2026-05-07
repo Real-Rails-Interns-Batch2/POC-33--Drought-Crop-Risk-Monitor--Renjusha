@@ -4,15 +4,20 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import { useEffect } from "react";
 
+// Use a custom Tailwind-styled icon instead of broken images
+const createCustomIcon = (color: string) => L.divIcon({
+  className: 'custom-marker',
+  html: `<div style="background-color: ${color}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
+  iconSize: [16, 16],
+});
+
 // 🔥 Auto-zoom component
 function FlyToRegion({ selectedRegion }: any) {
   const map = useMap();
 
   useEffect(() => {
     if (selectedRegion) {
-      map.flyTo([selectedRegion.lat, selectedRegion.lon], 4, {
-        duration: 1.5,
-      });
+      map.flyTo([selectedRegion.lat, selectedRegion.lon], 4); 
     }
   }, [selectedRegion, map]);
 
@@ -40,9 +45,9 @@ export default function MapComponent({ data, selectedRegion }: any) {
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
-        attribution="&copy; OpenStreetMap contributors"
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+  attribution='Tiles &copy; Esri'
+  url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+/>
 
       {/* 🔥 Auto Zoom */}
       <FlyToRegion selectedRegion={selectedRegion} />
@@ -61,7 +66,7 @@ export default function MapComponent({ data, selectedRegion }: any) {
           <Marker
             key={index}
             position={[item.lat, item.lon]}
-            icon={icon}
+            icon={createCustomIcon(color)}
           >
             <Popup>
               <div className="text-sm">

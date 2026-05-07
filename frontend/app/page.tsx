@@ -50,20 +50,20 @@ const filteredData =
 };
 
   return (
-    <main className="flex h-screen bg-[#030712] text-white">
+    <main className="flex h-screen w-screen overflow-hidden bg-[#030712] text-white font-sans">
       
       {/* LEFT SIDE (70%) */}
       <div className="w-[70%] p-4">
-        <div className="h-full rounded-xl bg-[#0B1117] border border-gray-800 flex items-center justify-center relative z-0">
+        <div className="h-full w-full rounded-xl border border-[#1F2937] bg-[#0B1117] overflow-hidden">
           <MapComponent data={filteredData} selectedRegion={selectedRegion} />
         </div>
       </div>
 
     {/* RIGHT SIDE (30%) */}
-    <div className="w-[30%] p-6 border-r border-gray-800 overflow-y-auto bg-[#020617]">
+    <div className="w-[30%] p-6 border-l border-[#1F2937] bg-[#020617] overflow-y-auto">
 
   {/* TITLE */}
-  <h1 className="text-2xl font-bold mb-2 text-white hover:text-cyan-300 transition">
+  <h1 className="text-2xl font-bold mb-6 text-white hover:text-cyan-300 transition border-b border-[#1F2937] pb-4">
     Drought & Crop Risk Monitor
   </h1>
   {/* FILTER BUTTONS */ }
@@ -76,8 +76,8 @@ const filteredData =
       className={`px-3 py-1 text-xs rounded-full border transition
       ${
         filter === type
-          ? "bg-cyan-400 text-black border-cyan-400"
-          : "border-gray-700 text-gray-300 hover:border-gray-500"
+          ? "bg-[#38BDF8] text-[#030712] border-[#38BDF8] rr-glow"
+          : "border-[#1F2937] text-gray-400 hover:border-gray-500"
       }`}
     >
       {type}
@@ -87,56 +87,7 @@ const filteredData =
   
 </div>
 
-  {/*DOWNLOAD BUTTON */ }
-
-<div className="mt-3 mb-3">
-  <button
-    onClick={downloadData}
-    className="w-full px-6 py-3 text-sm bg-[#0B1117] border border-gray-700 rounded-lg text-gray-300 hover:border-gray-500 transition"
-  >
-    ⬇ Download Data
-  </button>
-</div>
-
- {/* INFO CARDS */ }
-
-  <div className="grid grid-cols-3 gap-3 mb-6">
-  
-  <div className="p-3 bg-[#0B1117]/80 rounded-lg border border-gray-800 hover:border-gray-500 transition">
-    <p className="text-xs text-gray-300 ">Regions</p>
-    <p className="text-lg font-semibold">{data.length}</p>
-  </div>
-
-  <div className="p-3 bg-[#0B1117] rounded-lg border border-gray-800 hover:border-gray-500 transition">
-    <p className="text-xs text-gray-300">High Risk</p>
-    <p className="text-lg font-semibold text-red-400">{highRiskCount}</p>
-  </div>
-
-  <div className="p-3 bg-[#0B1117] rounded-lg border border-gray-800 hover:border-gray-500 transition">
-    <p className="text-xs text-gray-300">Avg Risk</p>
-    <p className="text-lg font-semibold text-cyan-400">{avgRisk}</p>
-  </div>
-
-</div>
-   {/* SUBTITLE */ }
-  <p className="text-sm text-gray-400 mb-6">
-    Real-time global agricultural stress tracking
-  </p>
-
-  {/* GLOBAL STATUS */}
-  <div className="mb-6 p-4 bg-[#0B1117] rounded-xl border border-gray-800 hover:border-gray-500 transition">
-    <h2 className="text-sm text-gray-400 mb-2">GLOBAL RISK STATUS</h2>
-
-    <p className="text-xl font-semibold text-red-400">
-      High Volatility Detected
-    </p>
-
-    <p className="text-xs text-gray-500 mt-1">
-      Multiple regions under climate stress
-    </p>
-  </div>
-
-  {/* SEARCH COUNTRY */}
+ {/* SEARCH COUNTRY */}
 <div className="mb-6 p-4 bg-[#0B1117] rounded-xl border border-gray-800 hover:border-gray-500 transition">
   <h2 className="text-sm text-gray-200 mb-3">
     Search country to identify risk
@@ -172,6 +123,54 @@ const filteredData =
         ))}
     </div>
   )}
+</div> 
+
+ {/* INFO CARDS */ }
+
+  <div className="grid grid-cols-3 gap-3 mb-6">
+  
+  <div className="rr-card p-3 rounded-lg hover:border-gray-500 transition">
+    <p className="text-xs text-gray-400 ">Regions</p>
+    <p className="font-semibold">{data.length}</p>
+  </div>
+
+  <div className="rr-card p-3 rounded-lg border-red-900/50 hover:border-gray-500 transition">
+    <p className="text-xs text-gray-400">High Risk</p>
+    <p className="text-lg font-semibold text-red-400">{highRiskCount}</p>
+  </div>
+
+  <div className="rr-card p-3 rounded-lg hover:border-gray-500 transition">
+    <p className="text-xs text-gray-400">Avg Risk</p>
+    <p className="text-lg font-semibold text-[#38BDF8]">{avgRisk}</p>
+  </div>
+
+</div>
+   {/* SUBTITLE */ }
+  <p className="text-sm text-gray-400 mb-6">
+    Real-time global agricultural stress tracking
+  </p>
+
+  {/* GLOBAL STATUS */}
+  <div className="mb-6 p-4 bg-[#0B1117] rounded-xl border border-gray-800 hover:border-gray-500 transition">
+    <h2 className="text-sm text-gray-400 mb-2">GLOBAL RISK STATUS</h2>
+
+    <p className="text-xl font-semibold text-red-400">
+      High Volatility Detected
+    </p>
+
+    <p className="text-xs text-gray-500 mt-1">
+      Multiple regions under climate stress
+    </p>
+  </div>
+
+  {/*DOWNLOAD BUTTON */ }
+<div className="mt-3 mb-3">
+  <button
+    onClick={downloadData}
+    className="w-full px-6 py-3 text-sm bg-[#0B1117] border border-gray-700 rounded-lg text-gray-300 hover:border-gray-500 transition"
+  >
+    ⬇ Download Data
+  </button>
 </div>
 
   {/* WHY IT MATTERS */}
